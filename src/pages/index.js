@@ -24,13 +24,19 @@ class BlogIndex extends React.Component {
                 <h3
                   style={{
                     marginBottom: rhythm(1 / 4),
+                    fontFamily: "Montserrat,sans-serif",
                   }}
                 >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                  <Link
+                    style={{ boxShadow: "none", color: "var(--header)" }}
+                    to={node.fields.slug}
+                  >
                     {title}
                   </Link>
                 </h3>
-                <small>{node.frontmatter.date}</small>
+                <small style={{ color: "var(--textSecondary)" }}>
+                  {node.frontmatter.date}
+                </small>
               </header>
               <section>
                 <p

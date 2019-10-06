@@ -33,6 +33,7 @@ class BlogPostTemplate extends React.Component {
                 ...scale(-1 / 5),
                 display: `block`,
                 marginBottom: rhythm(1),
+                color: "var(--textSecondary)",
               }}
             >
               {post.frontmatter.date}
