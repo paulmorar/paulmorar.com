@@ -12,22 +12,9 @@ I'm sure I'll write a lot more interesting things in the future.
 function getName(user) {
   let name = user.name
   if (name === null) {
-    throw new Error("A girl has no name")
+    throw new Error("stuff")
   }
   return name
-}
-
-function makeFriends(user1, user2) {
-  user1.friendNames.add(getName(user2))
-  user2.friendNames.add(getName(user1))
-}
-
-const arya = { name: null }
-const gendry = { name: "Gendry" }
-try {
-  makeFriends(arya, gendry)
-} catch (err) {
-  console.log("Oops, that didn't work out: ", err)
 }
 ```
 
