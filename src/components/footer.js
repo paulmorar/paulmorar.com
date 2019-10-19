@@ -1,14 +1,55 @@
 import React from "react"
-import { Link } from "gatsby"
-
-import { rhythm, scale } from "../utils/typography"
+import { useStaticQuery, graphql } from "gatsby"
 
 export default () => {
+  const data = useStaticQuery(graphql`
+    query FooterQuery {
+      avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
+        childImageSharp {
+          fixed(width: 50, height: 50) {
+            ...GatsbyImageSharpFixed
+          }
+        }
+      }
+      site {
+        siteMetadata {
+          author
+          social {
+            twitter
+            github
+          }
+        }
+      }
+    }
+  `)
+
+  const { social } = data.site.siteMetadata
   return (
-    <footer style={{ marginTop: "3rem" }}>
-      © {new Date().getFullYear()}, Built with
-      {` `}
-      <a href="https://www.gatsbyjs.org">Gatsby</a>
+    <footer
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        marginTop: "3rem",
+      }}
+    >
+      <div>© {new Date().getFullYear()}</div>
+      <div>
+        <a
+          href={`https://twitter.com/${social.twitter}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <strong>Twitter</strong>
+        </a>
+        {" : "}
+        <a
+          href={`https://github.com/${social.github}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <strong>Github</strong>
+        </a>
+      </div>
     </footer>
   )
 }

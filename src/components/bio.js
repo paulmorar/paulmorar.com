@@ -26,6 +26,7 @@ const Bio = () => {
           author
           social {
             twitter
+            github
           }
         }
       }
@@ -36,8 +37,9 @@ const Bio = () => {
   return (
     <div
       style={{
-        display: `flex`,
+        display: "flex",
         marginBottom: rhythm(1.5),
+        alignItems: "center",
       }}
     >
       <Image
@@ -47,18 +49,23 @@ const Bio = () => {
           marginRight: rhythm(1 / 2),
           marginBottom: 0,
           minWidth: 50,
-          borderRadius: `100%`,
+          borderRadius: "100%",
         }}
         imgStyle={{
-          borderRadius: `50%`,
+          borderRadius: "50%",
         }}
       />
       <p style={{ margin: 0 }}>
-        Written by{" "}
-        <a href={`https://twitter.com/${social.twitter}`}>
+        Blogged in traffic
+        <br />
+        Developer thoughts from{" "}
+        <a
+          href={`https://twitter.com/${social.twitter}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <strong>{author}</strong>
-        </a>{" "}
-        while sipping coffee and munching on a croissant in Copenhagen.
+        </a>
       </p>
     </div>
   )
