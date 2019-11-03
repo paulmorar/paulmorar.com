@@ -4,11 +4,11 @@ body {
 
 body {
   -webkit-font-smoothing: antialiased;
-  --bg: #212121;
-  --header: #ff4431;
+  --bg: #071d31;
+  --header: #ff4013;
   --textPrimary: #ffffff;
   --textSecondary: #a9a9a9;
-  --textLink: #ff4431;
+  --textLink: #ff4013;
   --inlineCode-bg: hsl(222, 14%, 25%);
   --inlineCode-text: #e6e6e6;
 }
