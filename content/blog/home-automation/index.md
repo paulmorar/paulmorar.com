@@ -89,3 +89,30 @@ Let’s look at something simple - my very first automation that I wrote using t
 This is the Node-RED flow:
 
 ![node red automation flow example](./node_red_integration.png)
+
+When the state of my sensor changes, it triggers a function node and based on that output I execute an email task.
+
+This is how my function looks like:
+
+```js
+// Check if opened less than 5 minutes -> no change
+if (msg.data.timeSinceChangedMs < 30000) {
+  flow.set("awayOver5", 0) // Reset
+  return null
+}
+// Check if already away more than 5 minutes
+if (flow.get("awayOver5") == 1) {
+  return null
+}
+flow.set("awayOver5", 1)
+// Send email
+msg = {
+  payload: "You forgot the door opened at " + Date().toString(),
+  topic: "Main Door Open",
+}
+return msg
+```
+
+In case the code returns a message, I will end up getting an email telling me that I forgot my door open.
+
+Let me know on [twitter](https://twitter.com/paulmorar) if you want me to elaborate more on the Node-RED automation flows, debugging and all the likes.
