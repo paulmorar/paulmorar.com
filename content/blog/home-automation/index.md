@@ -6,7 +6,7 @@ description: "My Home Automation Setup"
 
 Nowadays we have all kinds of home automation setups that work out of the box. For example Philips Hue came out with the light automation system. Recently IKEA added automated blinders on top of their lighting setup. But Xiaomi is way ahead of them all and has the most extensive solution for home automation.
 
-You can have all of these systems running in parallel in your home, but there is one catch. All of them have their own hub. And as I live in an apartment, space is important, so I wanted to see if I can combine all of these into one, self controlled hub. A friend of mine suggested to go with [Home Assistant](https://www.home-assistant.io/hassio/) as the solution is super extensive and can handle everything you throw at it. Besides that, the software is free and open source. So here I am writing about my experience and setup of this system.
+You can have all of these systems running in parallel in your home, but there is one catch. All of them have their own hub. Because I live in an apartment, space is important, so I wanted to see if I can combine all of these into one, self controlled hub. A friend of mine suggested to go with [Home Assistant](https://www.home-assistant.io/hassio/) as the solution is super extensive and can handle everything you throw at it. Besides that, the software is free and open source. So here I am writing about my experience and setup of this system.
 
 In this post I am going cover the basics of the setup, as this can become extremely advanced.
 
