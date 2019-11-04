@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-export default () => {
+const Footer = () => {
   const data = useStaticQuery(graphql`
     query FooterQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
@@ -53,3 +53,5 @@ export default () => {
     </footer>
   )
 }
+
+export default Footer
