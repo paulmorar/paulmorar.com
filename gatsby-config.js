@@ -41,10 +41,10 @@ module.exports = {
             },
           },
           {
-            resolve: "gatsby-remark-external-links",
+            resolve: `gatsby-remark-external-links`,
             options: {
-              target: "_blank",
-              rel: "noopener noreferrer",
+              target: `_blank`,
+              rel: `noopener noreferrer`,
             },
           },
           `gatsby-remark-prismjs`,
@@ -82,5 +82,6 @@ module.exports = {
         pathToConfigModule: `src/utils/typography`,
       },
     },
+    `gatsby-plugin-typescript`,
   ],
 }
