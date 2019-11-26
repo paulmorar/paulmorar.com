@@ -1,8 +1,8 @@
 {
   "name": "paulmorar.com",
   "private": true,
-  "description": "Paulmorar.com",
-  "version": "0.1.0",
+  "description": "Paul's personal blog",
+  "version": "1.0.0",
   "author": "Paul Morar <paulmornelmorar@gmail.com>",
   "bugs": {
     "url": "https://github.com/paulmorar/paulmorar.com/issues"
@@ -42,15 +42,12 @@
     "prettier": "^1.18.2",
     "typescript": "^3.6.4"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
-  "keywords": [
-    "gatsby"
-  ],
+  "homepage": "https://paulmorar.com/",
   "license": "MIT",
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/paulmorar/paulmorar.com.git"
   },
   "scripts": {
     "build": "gatsby build",
