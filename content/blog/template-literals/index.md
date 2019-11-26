@@ -55,7 +55,7 @@ As we can see, the first argument is an array of the string values from your lit
 
 ```js
 const x = "x"
-const x = "y"
+const y = "y"
 
 const format = (strings, ...values) => {
   console.log({ strings, values })
