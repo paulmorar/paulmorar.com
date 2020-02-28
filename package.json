@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "prettier": "1.19.1",
-    "typescript": "3.8.2"
+    "typescript": "3.8.3"
   },
   "homepage": "https://paulmorar.com/",
   "license": "MIT",
