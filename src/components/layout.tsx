@@ -4,6 +4,14 @@ import Footer from "./footer"
 
 import { rhythm, scale } from "../utils/typography"
 
+const getDrops = () => {
+  let fallingDrops = []
+  for (var i = 0; i < 50; i++) {
+    fallingDrops.push(<i className="drop" />)
+  }
+  return fallingDrops
+}
+
 interface Props {
   location: Location
   title: string
@@ -58,6 +66,7 @@ const Layout = ({ location, title, children }: Props) => {
       </h3>
     )
   }
+
   return (
     <div
       style={{
@@ -67,6 +76,7 @@ const Layout = ({ location, title, children }: Props) => {
         padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
       }}
     >
+      {getDrops()}
       <header>{header}</header>
       <main>{children}</main>
       <Footer />
