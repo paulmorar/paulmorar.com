@@ -7554,7 +7554,7 @@ gatsby-plugin-react-helmet@3.3.4:
   dependencies:
     "@babel/runtime" "^7.10.2"
 
-gatsby-plugin-sass@^2.3.4:
+gatsby-plugin-sass@2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-sass/-/gatsby-plugin-sass-2.3.4.tgz#0403edfda69f7e96d0686e238635a3fdd6c9bf84"
   integrity sha512-ftGnw+rfvM8645lbd7vzPaEGoZ/HXqTQjlhoe3fNOGWMNkzLYmiJKAKiQIhmeki4lH4NKVz6c7ZiAxTmtnd5uw==
@@ -11448,7 +11448,7 @@ node-releases@^1.1.53:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.55.tgz#8af23b7c561d8e2e6e36a46637bab84633b07cee"
   integrity sha512-H3R3YR/8TjT5WPin/wOoHOUPHgvj8leuU/Keta/rwelEQN9pA/S2Dx8/se4pZ2LBxSd0nAGzsNzhqwa77v7F1w==
 
-node-sass@^4.14.1:
+node-sass@4.14.1:
   version "4.14.1"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.14.1.tgz#99c87ec2efb7047ed638fb4c9db7f3a42e2217b5"
   integrity sha512-sjCuOlvGyCJS40R8BscF5vhVlQjNN069NtQ1gSxyK1u9iqvn6tf7O1R4GNowVZfiZUCRt5MmMs1xd+4V/7Yr0g==
