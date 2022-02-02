@@ -1,13 +1,52 @@
-# [paulmorar.com](https://paulmorar.com/) 📕
+# Welcome to Remix!
 
-My personal blog based on [Gatsby blog starter](https://github.com/gatsbyjs/gatsby-starter-blog)
+- [Remix Docs](https://remix.run/docs)
 
-To run this locally you need to have `yarn` installed. 🔩
+## Netlify Setup
 
-Do a:
+1. Install the [Netlify CLI](https://www.netlify.com/products/dev/):
 
-`yarn`
+```sh
+npm i -g netlify-cli
+```
 
-`yarn develop`
+If you have previously installed the Netlify CLI, you should update it to the latest version:
 
-Then got to http://localhost:8000/ 🧙‍
+```sh
+npm i -g netlify-cli@latest
+```
+
+2. Sign up and log in to Netlify:
+
+```sh
+netlify login
+```
+
+3. Create a new site:
+
+```sh
+netlify init
+```
+
+## Development
+
+The Netlify CLI starts your app in development mode, rebuilding assets on file changes.
+
+```sh
+npm run dev
+```
+
+Open up [http://localhost:3000](http://localhost:3000), and you should be ready to go!
+
+## Deployment
+
+There are two ways to deploy your app to Netlify, you can either link your app to your git repo and have it auto deploy changes to Netlify, or you can deploy your app manually. If you've followed the setup instructions already, all you need to do is run this:
+
+```sh
+$ npm run build
+# preview deployment
+$ netlify deploy
+
+# production deployment
+$ netlify deploy --prod
+```

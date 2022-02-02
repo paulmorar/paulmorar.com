@@ -1,63 +1,38 @@
 {
-  "name": "paulmorar.com",
   "private": true,
-  "description": "Paul's personal blog",
-  "version": "1.0.0",
-  "author": "Paul Morar <paulmornelmorar@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/paulmorar/paulmorar.com/issues"
+  "name": "remix-app-template",
+  "description": "",
+  "license": "",
+  "scripts": {
+    "build": "npm run build:css && remix build",
+    "build:css": "tailwindcss -o ./app/tailwind.css",
+    "dev": "concurrently \"npm run dev:css\" \"npm run dev:app\"",
+    "dev:app": "cross-env NODE_ENV=development netlify dev",
+    "dev:css": "tailwindcss -o ./app/tailwind.css --watch",
+    "postinstall": "remix setup node",
+    "typecheck": "tsc -b"
   },
   "dependencies": {
-    "gatsby": "2.32.13",
-    "gatsby-image": "2.11.0",
-    "gatsby-plugin-feed": "2.13.1",
-    "gatsby-plugin-google-analytics": "2.11.0",
-    "gatsby-plugin-manifest": "2.12.1",
-    "gatsby-plugin-offline": "3.10.2",
-    "gatsby-plugin-react-helmet": "3.10.0",
-    "gatsby-plugin-sass": "3.2.0",
-    "gatsby-plugin-sharp": "2.14.4",
-    "gatsby-plugin-typescript": "2.12.1",
-    "gatsby-plugin-typography": "2.12.0",
-    "gatsby-remark-copy-linked-files": "2.10.0",
-    "gatsby-remark-external-links": "0.0.4",
-    "gatsby-remark-images": "3.11.1",
-    "gatsby-remark-prismjs": "3.13.0",
-    "gatsby-remark-responsive-iframe": "2.11.0",
-    "gatsby-remark-smartypants": "2.10.0",
-    "gatsby-source-filesystem": "2.11.1",
-    "gatsby-transformer-remark": "2.16.1",
-    "gatsby-transformer-sharp": "2.12.1",
-    "node-sass": "5.0.0",
-    "prismjs": "1.25.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-helmet": "6.1.0",
-    "react-typography": "0.16.20",
-    "typeface-merriweather": "1.1.13",
-    "typeface-montserrat": "1.1.13",
-    "typography": "0.16.21",
-    "typography-theme-wordpress-2016": "0.16.19",
-    "yarn": "1.22.11"
+    "@remix-run/react": "^1.1.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "remix": "^1.1.3",
+    "@netlify/functions": "^0.10.0",
+    "@remix-run/netlify": "^1.1.3",
+    "typewriter-effect": "^2.18.2"
   },
   "devDependencies": {
-    "prettier": "2.4.1",
-    "typescript": "4.4.2"
+    "@remix-run/dev": "^1.1.3",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "concurrently": "^7.0.0",
+    "prettier": "^2.5.1",
+    "tailwindcss": "^3.0.18",
+    "typescript": "^4.1.2",
+    "cross-env": "^7.0.3"
   },
-  "homepage": "https://paulmorar.com/",
-  "license": "MIT",
-  "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/paulmorar/paulmorar.com.git"
+  "engines": {
+    "node": ">=14"
   },
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \"",
-    "type-check": "tsc --noEmit"
-  }
+  "sideEffects": false
 }
