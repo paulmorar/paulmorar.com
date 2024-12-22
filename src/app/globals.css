@@ -70,3 +70,24 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.circle {
+  transform: translate(-40%, -60%);
+  background-color: rgba(34, 184, 54, 1);
+  animation: pulse-green 1.9s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.9) translate(-40%, -60%);
+    box-shadow: 0 0 0 0 rgba(34, 184, 54, 1);
+  }
+  80% {
+    transform: scale(1) translate(-40%, -60%);
+    box-shadow: 0 0 0 11px rgba(34, 184, 54, 0);
+  }
+  100% {
+    transform: scale(0.9) translate(-40%, -60%);
+    box-shadow: 0 0 0 0 rgba(34, 184, 54, 0);
+  }
+}
