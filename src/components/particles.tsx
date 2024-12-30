@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
-import { pOptions } from "@/config/particleOptions";
+import { pOptions } from "@/config/particle-options";
 
 const ParticlesComponent = () => {
   const [init, setInit] = useState(false);

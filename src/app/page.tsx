@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 export default function Home() {
   return (
@@ -25,10 +27,46 @@ export default function Home() {
               Hi, I’m Paul. <br />A Software Engineer.
             </h1>
           </div>
-          <p className="max-w-xl">
+          <p className="max-w-xl text-slate-300">
             I’m a dedicated problem-solver who thrives on learning, building and
             leading high-performance teams.
           </p>
+          <div className="flex flex-row items-center gap-4">
+            <Link
+              className="w-14 h-14 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+              href="https://github.com/paulmorar"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Github"
+            >
+              <Github size="28"></Github>
+            </Link>
+            <Link
+              className="w-14 h-14 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+              href="https://www.linkedin.com/in/paulmorar/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Linkedin"
+            >
+              <Linkedin size="28"></Linkedin>
+            </Link>
+            <Link
+              className="w-14 h-14 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+              href="mailto:paul@devpill.dk?subject=Hi%20Paul&body=Hi%20👋"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+            >
+              <Mail size="28"></Mail>
+            </Link>
+            <Link
+              className="h-14 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+              href="/about"
+              aria-label="More about me"
+            >
+              <span className="px-4">MORE ABOUT ME</span>
+            </Link>
+          </div>
         </div>
       </main>
     </div>
