@@ -155,7 +155,7 @@ export const DATA = {
       school: "Emil Racovita High School - Mathemathics and Computer Science",
       href: "#",
       degree: "High School and IB Diploma",
-      logoUrl: "/ib.png",
+      logoUrl: "",
       start: "2005",
       end: "2009",
     },

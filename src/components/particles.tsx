@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
-import type { Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { pOptions } from "@/config/particle-options";
 
@@ -17,19 +16,7 @@ const ParticlesComponent = () => {
     });
   }, []);
 
-  const particlesLoaded = async (container: Container | undefined) => {
-    console.log(container);
-  };
-
-  return (
-    init && (
-      <Particles
-        id="tsparticles"
-        options={pOptions}
-        particlesLoaded={particlesLoaded}
-      />
-    )
-  );
+  return init && <Particles id="tsparticles" options={pOptions} />;
 };
 
 export default ParticlesComponent;

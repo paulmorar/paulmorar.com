@@ -4,26 +4,35 @@ import "./globals.css";
 import ParticlesComponent from "@/components/particles";
 
 export const metadata: Metadata = {
-  title: "Hi, I’m Paul",
-  description:
-    "Paul is a software engineer who thrives on learning, building and leading high-performance teams.",
+  title: "paulmorar.com",
+  description: "Need help driving your next project to the next level?",
   keywords:
     "Software Engineer, Paul Morar, Paul, Morar, PaulMorar, Paul Morar Software Engineer, Paul Morar Software Engineer",
   openGraph: {
     title: "Hi, I’m Paul",
-    siteName: "Hi, I’m Paul",
-    description:
-      "Paul is a software engineer who thrives on learning, building and leading high-performance teams.",
+    siteName: "paulmorar.com",
+    description: "Need help driving your next project to the next level?",
     type: "website",
     url: "https://paulmorar.com",
     locale: "en_US",
+    images: [
+      {
+        url: "/web-social.png",
+      },
+    ],
   },
   twitter: {
     creator: "@paulmorar",
     site: "@paulmorar",
     card: "summary_large_image",
+    images: "/web-social.png",
   },
   robots: "follow, index",
+  manifest: "/manifest.webmanifest",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
