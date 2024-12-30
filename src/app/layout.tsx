@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import { Particles } from "@tsparticles/engine";
 import ParticlesComponent from "@/components/particles";
 
 export const metadata: Metadata = {
