@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import ParticlesComponent from "@/components/particles";
 
 export const metadata: Metadata = {
   title: "paulmorar.com",
@@ -49,7 +48,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ParticlesComponent />
           {children}
         </ThemeProvider>
       </body>

@@ -1,3 +1,5 @@
+"use client";
+
 import BlurFade from "@/components/ui/blur-fade";
 import BlurFadeText from "@/components/ui/blur-fade-text";
 import { ResumeCard } from "@/components/resume-card";
@@ -9,10 +11,10 @@ import { getCurrentDayOfWeek } from "@/lib/utils";
 
 const BLUR_FADE_DELAY = 0.04;
 
-export default function Page() {
+export default function About() {
   return (
-    <main className="flex flex-col justify-center items-center w-screen">
-      <div className="flex flex-col min-h-[100dvh] max-w-2xl space-y-10 mt-32">
+    <main className="flex flex-col justify-center items-center w-screen p-8">
+      <div className="flex flex-col min-h-[100dvh] max-w-2xl space-y-10 mt-16">
         <section id="hero">
           <div className="mx-auto w-full max-w-2xl space-y-8">
             <div className="gap-2 flex justify-between">
