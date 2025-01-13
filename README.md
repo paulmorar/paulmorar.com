@@ -6,6 +6,7 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Deployment](https://img.shields.io/github/deployments/paulmorar/paulmorar.com/production?label=Deployment&logo=vercel&style=for-the-badge)
 
 Welcome to the repository for Paul Morar's personal portfolio website. This project showcases my professional experience, skills, and projects.
 
