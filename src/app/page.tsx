@@ -39,7 +39,7 @@ export default function Home() {
             </p>
             <div className="flex flex-row items-center gap-4 mt-4">
               <Link
-                className="w-12 h-12 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+                className="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white"
                 href="https://github.com/paulmorar"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -48,7 +48,7 @@ export default function Home() {
                 <Github size="24"></Github>
               </Link>
               <Link
-                className="w-12 h-12 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+                className="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white"
                 href="https://www.linkedin.com/in/paulmorar/"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -57,7 +57,7 @@ export default function Home() {
                 <Linkedin size="24"></Linkedin>
               </Link>
               <Link
-                className="w-12 h-12 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+                className="w-12 h-12 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white"
                 href="mailto:paul@devpill.dk?subject=Hi%20Paul&body=Hi%20👋"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -66,7 +66,7 @@ export default function Home() {
                 <Mail size="24"></Mail>
               </Link>
               <Link
-                className="h-12 flex items-center justify-center rounded-lg border-solid border-2 border-gray-300 hover:border-gray-200 text-gray-300 hover:text-gray-200"
+                className="h-12 flex items-center justify-center rounded-lg bg-gray-800 bg-opacity-50 hover:bg-opacity-70 text-white"
                 href="/about"
                 aria-label="More about me"
               >
