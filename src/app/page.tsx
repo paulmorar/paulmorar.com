@@ -35,7 +35,7 @@ export default function Home() {
               and leading high-performance teams.
             </p>
             <p className="max-w-xl text-xl text-slate-300">
-              Working on something interesting? Let’s talk 😉!
+              Working on something interesting? Let’s talk 😉
             </p>
             <div className="flex flex-row items-center gap-4 mt-4">
               <Link

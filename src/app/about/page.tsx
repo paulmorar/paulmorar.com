@@ -14,9 +14,9 @@ const BLUR_FADE_DELAY = 0.04;
 export default function About() {
   return (
     <main className="flex flex-col justify-center items-center w-screen p-8">
-      <div className="flex flex-col min-h-[100dvh] max-w-2xl space-y-10 mt-16">
+      <div className="flex flex-col min-h-[100dvh] max-w-4xl space-y-10 mt-16">
         <section id="hero">
-          <div className="mx-auto w-full max-w-2xl space-y-8">
+          <div className="mx-auto w-full max-w-4xl space-y-8">
             <div className="gap-2 flex justify-between">
               <div className="flex-col flex flex-1 space-y-1.5">
                 <BlurFadeText
