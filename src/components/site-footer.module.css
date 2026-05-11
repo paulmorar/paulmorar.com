@@ -1,0 +1,27 @@
+.footer {
+  max-width: 60rem;
+  margin: 4rem auto 0;
+  padding: 2rem clamp(1rem, 4vw, 2rem) 2.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  color: var(--ink-muted);
+}
+
+.links {
+  display: flex;
+  gap: 1.25rem;
+}
+
+.links a {
+  text-decoration: none;
+
+  &:hover {
+    color: var(--accent);
+  }
+}

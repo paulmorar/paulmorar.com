@@ -1,0 +1,52 @@
+---
+title: "From front-end to DevOps"
+summary: "Eight years, four companies, and the slow slide from CSS to Kubernetes."
+date: "2026-04-22"
+tags: ["career", "platform"]
+---
+
+I started my career writing CSS for a car-trading platform in Aarhus. I'm writing this from a desk where, ten minutes ago, I was tailing logs from a Kubernetes pod that's been misbehaving for three days. The path between those two moments wasn't a plan. It was a series of "this part of the system is on fire and nobody else is looking at it" decisions, repeated until I had a new job title.
+
+This is a short account of how that happened, and what I think I learned from it.
+
+## The pull was always downward
+
+At AutoUncle I owned the dealer-facing product. That meant Rails, JavaScript, and a fair amount of design. I liked it. But every interesting bug eventually crossed into "well, this happens because the deploy queue did X" or "the cache layer assumed Y." The interesting work — the work that taught me things — was always a layer below where I was supposed to be.
+
+That pattern repeated at Vivino. I was hired as a front-end engineer. The thing I'm proudest of from that job is not a feature. It's killing jQuery and Bootstrap across all our apps. That's a CI/CD and refactoring story dressed up as a front-end one.
+
+## DevOps isn't a department, it's a posture
+
+The biggest shift, mentally, was realising that the line between "app code" and "infra" is mostly bureaucratic. The same person who writes the React component should care about how it gets to production, how it fails, and how you'll know if it does.
+
+Most of what I do at Banking Circle now looks like this:
+
+```ts
+// A small thing that saved an hour a day for fifty engineers.
+// Multiply it across a year, across a platform, and that's the job.
+export function withTrace<T>(name: string, fn: () => Promise<T>): Promise<T> {
+  return tracer.startActiveSpan(name, async (span) => {
+    try {
+      return await fn();
+    } catch (err) {
+      span.recordException(err as Error);
+      span.setStatus({ code: SpanStatusCode.ERROR });
+      throw err;
+    } finally {
+      span.end();
+    }
+  });
+}
+```
+
+Not glamorous. But the highest-leverage code I write these days is helpers that make doing the right thing trivial.
+
+## What I'd tell my front-end self
+
+Three things:
+
+1. **Learn one thing deeply per year.** Not "I touched Kubernetes." More like "I can explain how the scheduler picks a node, and I've debugged a case where it picked wrong."
+2. **Volunteer for the unsexy work.** CI pipelines, observability, build times, on-call runbooks. The people who own these things end up technical leaders, almost by accident.
+3. **Write things down.** This post is here because half the time, future-me is the only one who reads the docs.
+
+That's the whole story. Front-end engineers who get curious about everything underneath their components tend to end up doing platform work eventually. It's a good place to be.

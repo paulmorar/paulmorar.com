@@ -1,56 +1,69 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Caveat, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { site } from "@/lib/site";
 import "./globals.css";
 
+const display = Caveat({
+  subsets: ["latin"],
+  variable: "--font-display-base",
+  weight: ["400", "600", "700"],
+  display: "swap",
+});
+
+const sans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-sans-base",
+  display: "swap",
+});
+
+const mono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono-base",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "paulmorar.com",
-  description: "Need help driving your next project to the next level?",
-  keywords:
-    "Software Engineer, Paul Morar, Paul, Morar, PaulMorar, Paul Morar Software Engineer, Paul Morar Software Engineer",
+  metadataBase: new URL(site.url),
+  title: {
+    default: site.title,
+    template: `%s · ${site.name}`,
+  },
+  description: site.description,
   openGraph: {
-    title: "Hi, I’m Paul",
-    siteName: "paulmorar.com",
-    description: "Need help driving your next project to the next level?",
+    title: site.title,
+    description: site.description,
+    url: site.url,
+    siteName: site.name,
     type: "website",
-    url: "https://paulmorar.com",
-    locale: "en_US",
-    images: [
-      {
-        url: "/web-social.png",
-      },
-    ],
+    locale: "en_GB",
   },
   twitter: {
+    card: "summary_large_image",
     creator: "@paulmorar",
     site: "@paulmorar",
-    card: "summary_large_image",
-    images: "/web-social.png",
+  },
+  alternates: {
+    types: {
+      "application/rss+xml": [
+        { url: "/writing/rss.xml", title: `${site.name} — Writing` },
+      ],
+    },
   },
   robots: "follow, index",
   manifest: "/manifest.webmanifest",
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+    <html
+      lang="en"
+      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+    >
+      <body>{children}</body>
     </html>
   );
 }

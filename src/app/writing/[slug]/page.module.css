@@ -1,0 +1,125 @@
+.article {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 4vw, 2rem) 0;
+}
+
+.header {
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.meta .dot {
+  color: var(--ink-faint);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--step-5);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.005em;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.summary {
+  color: var(--ink-muted);
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: 50ch;
+}
+
+.prose {
+  font-size: var(--step-1);
+  line-height: 1.7;
+}
+
+.prose > * + * {
+  margin-top: 1.25rem;
+}
+
+.prose h2 {
+  margin-top: 2.5rem;
+  font-family: var(--font-sans);
+  font-size: var(--step-2);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+}
+
+.prose h3 {
+  margin-top: 2rem;
+  font-family: var(--font-sans);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.prose blockquote {
+  margin: 1.5rem 0;
+  padding: 0.85rem 1.25rem;
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 0 8px 8px 0;
+  color: var(--ink);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5rem;
+}
+
+.prose li {
+  margin-top: 0.4rem;
+}
+
+.prose hr {
+  margin: 2rem 0;
+}
+
+.footerNav {
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+}
+
+.footerNav a {
+  text-decoration: none;
+  color: var(--ink-muted);
+  max-width: 45%;
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+.footerNav .prev::before {
+  content: "← ";
+}
+
+.footerNav .next {
+  text-align: right;
+  margin-left: auto;
+}
+
+.footerNav .next::after {
+  content: " →";
+}
