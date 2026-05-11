@@ -2,20 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
-import { JsonLd, breadcrumbSchema } from "@/lib/seo";
+import { about } from "@/lib/about";
+import { JsonLd, breadcrumbSchema, pageMetadata } from "@/lib/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: site.title,
   description: site.description,
-  alternates: { canonical: site.url },
-  openGraph: {
-    title: site.title,
-    description: site.description,
-    url: site.url,
-    type: "profile",
-  },
-};
+  openGraph: { type: "profile" },
+});
 
 export default function HomePage() {
   const latest = getAllPosts()[0];
@@ -32,15 +27,11 @@ export default function HomePage() {
         <h1 className={styles.name}>Paul Morar</h1>
 
         <p className={styles.tagline}>
-          Engineer, builder of <em>platforms</em>, occasional writer.
+          {about.tagline.lead} <em>{about.tagline.accent}</em>
+          {about.tagline.tail}
         </p>
 
-        <p className={styles.intro}>
-          I lead engineers at Banking Circle in Copenhagen, working on the
-          observability and platform layer that keeps a payments business
-          honest. Before that: front-ends at Saxo, Vivino, and a handful of
-          other places.
-        </p>
+        <p className={styles.intro}>{about.homeIntro}</p>
 
         <nav className={styles.actions} aria-label="Pages">
           <Link href="/about">About →</Link>

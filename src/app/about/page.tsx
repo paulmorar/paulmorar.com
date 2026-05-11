@@ -3,33 +3,23 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { about } from "@/lib/about";
 import { site } from "@/lib/site";
-import { JsonLd, breadcrumbSchema } from "@/lib/seo";
+import {
+  JsonLd,
+  breadcrumbSchema,
+  pageMetadata,
+  profilePageSchema,
+} from "@/lib/seo";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: "About Paul Morar",
-  description:
-    "Engineer in Copenhagen — front-end turned DevOps, currently leading platform and observability work at Banking Circle.",
-  alternates: { canonical: `${site.url}/about` },
-  openGraph: {
-    title: "About Paul Morar",
-    description:
-      "Engineer in Copenhagen — front-end turned DevOps, currently leading platform and observability work at Banking Circle.",
-    url: `${site.url}/about`,
-    type: "profile",
-  },
-};
+const ABOUT_DESCRIPTION =
+  "Engineer in Copenhagen — front-end turned DevOps, currently leading platform and observability work at Banking Circle.";
 
-const profilePageSchema = {
-  "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  "@id": `${site.url}/about#page`,
-  url: `${site.url}/about`,
-  name: "About Paul Morar",
-  about: { "@id": `${site.url}/#person` },
-  mainEntity: { "@id": `${site.url}/#person` },
-  inLanguage: "en-GB",
-} as const;
+export const metadata: Metadata = pageMetadata({
+  path: "/about",
+  title: "About Paul Morar",
+  description: ABOUT_DESCRIPTION,
+  openGraph: { type: "profile" },
+});
 
 export default function AboutPage() {
   return (

@@ -59,6 +59,24 @@ export function getAllSlugs(): string[] {
   return getAllPosts().map((p) => p.slug);
 }
 
+export function getPostWithNeighbours(slug: string): {
+  post: Post;
+  prev?: PostMeta;
+  next?: PostMeta;
+} | null {
+  const all = getAllPosts();
+  const idx = all.findIndex((p) => p.slug === slug);
+  if (idx === -1) return null;
+  const post = all[idx];
+  // Posts are sorted newest-first, so the "older" neighbour sits at idx+1
+  // and is what we surface as `prev` (i.e. previous in publication order).
+  return {
+    post,
+    prev: all[idx + 1],
+    next: idx > 0 ? all[idx - 1] : undefined,
+  };
+}
+
 export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString("en-GB", {
     day: "numeric",

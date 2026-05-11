@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import rehypePrettyCode, {
-  type Options as PrettyCodeOptions,
-} from "rehype-pretty-code";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { getAllPosts, getPost, formatDate } from "@/lib/posts";
+import { PostBody } from "@/components/post-body";
+import {
+  getAllPosts,
+  getPost,
+  getPostWithNeighbours,
+  formatDate,
+} from "@/lib/posts";
 import { site } from "@/lib/site";
-import { JsonLd, blogPostingSchema, breadcrumbSchema } from "@/lib/seo";
+import {
+  JsonLd,
+  blogPostingSchema,
+  breadcrumbSchema,
+  pageMetadata,
+} from "@/lib/seo";
 import styles from "./page.module.css";
 
 type Params = { slug: string };
@@ -26,39 +33,28 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
-  const url = `${site.url}/writing/${post.slug}`;
-  return {
+
+  const base = pageMetadata({
+    path: `/writing/${post.slug}`,
     title: post.title,
     description: post.summary,
     keywords: post.tags ? [...post.tags, ...site.keywords] : undefined,
     authors: [{ name: site.name, url: site.url }],
-    alternates: { canonical: url },
+    openGraph: { type: "article" },
+  });
+
+  return {
+    ...base,
     openGraph: {
-      title: post.title,
-      description: post.summary,
+      ...base.openGraph,
       type: "article",
-      url,
-      siteName: site.name,
-      locale: site.locale,
       publishedTime: post.date,
       modifiedTime: post.date,
       authors: [site.url],
       tags: post.tags ? [...post.tags] : undefined,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: post.title,
-      description: post.summary,
-      creator: site.social.xHandle,
-    },
   };
 }
-
-const prettyCodeOptions: PrettyCodeOptions = {
-  theme: { dark: "github-dark-dimmed", light: "github-light" },
-  keepBackground: false,
-  defaultLang: "plaintext",
-};
 
 export default async function PostPage({
   params,
@@ -66,13 +62,9 @@ export default async function PostPage({
   params: Promise<Params>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
-  if (!post) notFound();
-
-  const all = getAllPosts();
-  const idx = all.findIndex((p) => p.slug === slug);
-  const prev = idx >= 0 ? all[idx + 1] : undefined;
-  const next = idx > 0 ? all[idx - 1] : undefined;
+  const bundle = getPostWithNeighbours(slug);
+  if (!bundle) notFound();
+  const { post, prev, next } = bundle;
 
   return (
     <>
@@ -97,14 +89,7 @@ export default async function PostPage({
         </header>
 
         <div className={styles.prose}>
-          <MDXRemote
-            source={post.content}
-            options={{
-              mdxOptions: {
-                rehypePlugins: [[rehypePrettyCode, prettyCodeOptions]],
-              },
-            }}
-          />
+          <PostBody source={post.content} />
         </div>
 
         <nav className={styles.footerNav} aria-label="More posts">

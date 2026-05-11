@@ -8,6 +8,16 @@ export type Job = {
 };
 
 export const about = {
+  // Three-part tagline so callers can render their own accent treatment
+  // around "platforms" without duplicating the wording.
+  tagline: {
+    lead: "Engineer, builder of",
+    accent: "platforms",
+    tail: ", occasional writer.",
+  },
+  // Short bio used on the home card. Distinct from the longer `intro` on /about.
+  homeIntro:
+    "I lead engineers at Banking Circle in Copenhagen, working on the observability and platform layer that keeps a payments business honest. Before that: front-ends at Saxo, Vivino, and a handful of other places.",
   intro: [
     "I'm Paul, a software engineer based in Copenhagen. I started out designing and shipping front-ends, gradually slid down the stack, and these days I spend most of my time on the seams between product engineering and the platforms that hold it up.",
     "I lead engineers at Banking Circle, where I work on observability, internal tooling, and the boring-but-vital infrastructure that lets teams move quickly without breaking things in production. Before that I built core features and pushed the performance and UX of Saxo Bank's trading app, helped Vivino grow from an online community into a unified e-commerce shop, and shipped the pricing insights at AutoUncle that helped drivers and dealers actually sell their cars.",
