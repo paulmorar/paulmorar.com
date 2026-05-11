@@ -1,52 +1,82 @@
 ---
-title: "From front-end to DevOps"
-summary: "Eight years, four companies, and the slow slide from CSS to Kubernetes."
+title: "Front-end taught me how to do platform work"
+summary: "Eight years, four companies, and the slow education of an engineer who never quite stayed in his lane."
 date: "2026-04-22"
-tags: ["career", "platform"]
+tags: ["career", "platform", "front-end"]
 ---
 
-I started my career writing CSS for a car-trading platform in Aarhus. I'm writing this from a desk where, ten minutes ago, I was tailing logs from a Kubernetes pod that's been misbehaving for three days. The path between those two moments wasn't a plan. It was a series of "this part of the system is on fire and nobody else is looking at it" decisions, repeated until I had a new job title.
+Ten minutes ago I was tailing logs from a Kubernetes pod that's been misbehaving for three days. My first paid job in software was writing CSS for a car-trading site in Aarhus.
 
-This is a short account of how that happened, and what I think I learned from it.
+The line between those two moments isn't a slide downward. People sometimes describe a career like mine that way — "front-end to DevOps," like a slow defeat, or a midlife crisis at the network layer. That framing has never matched my experience. The work I do now and the work I did then are the same instinct, aimed at different parts of the system. The instinct is to own the whole thing that ships to the user, not just the part you were hired for. Front-end taught me how to do that. Platform work is what happens when you keep doing it.
 
-## The pull was always downward
+This is a job-by-job account of how that played out.
 
-At AutoUncle I owned the dealer-facing product. That meant Rails, JavaScript, and a fair amount of design. I liked it. But every interesting bug eventually crossed into "well, this happens because the deploy queue did X" or "the cache layer assumed Y." The interesting work — the work that taught me things — was always a layer below where I was supposed to be.
+## AutoUncle: shipping the whole thing
 
-That pattern repeated at Vivino. I was hired as a front-end engineer. The thing I'm proudest of from that job is not a feature. It's killing jQuery and Bootstrap across all our apps. That's a CI/CD and refactoring story dressed up as a front-end one.
+My title at AutoUncle was something like "designer / front-end engineer." It understated the job considerably.
 
-## DevOps isn't a department, it's a posture
+In practice, I designed dealer-facing flows in Sketch, built them in Ruby on Rails and JavaScript, and then went and ran Google and Facebook campaigns against the same flows I'd just shipped — A/B testing copy, landing pages, dealer onboarding funnels. The feedback loop was: design something on Monday, ship it Tuesday, watch the conversion rate move on Wednesday, decide whether I'd improved anything or made it worse.
 
-The biggest shift, mentally, was realising that the line between "app code" and "infra" is mostly bureaucratic. The same person who writes the React component should care about how it gets to production, how it fails, and how you'll know if it does.
+It was a small enough company, and a strange enough role, that I never got to specialise. The good version of that story is that I learned, at 25, that software isn't a deliverable. It's a system. The campaign, the landing page, the form, the dealer dashboard, the trade-in valuation, the follow-up email — those weren't separate products. They were the same product, viewed from different surfaces. If you only touched one of those surfaces, the others were going to bite you.
 
-Most of what I do at Banking Circle now looks like this:
+The Rails work, in particular, was my first sustained backend exposure. I never became a Rails engineer. But I came away knowing, viscerally, what was happening on the other side of an API call. That turns out to be a quiet superpower for the rest of a career.
 
-```ts
-// A small thing that saved an hour a day for fifty engineers.
-// Multiply it across a year, across a platform, and that's the job.
-export function withTrace<T>(name: string, fn: () => Promise<T>): Promise<T> {
-  return tracer.startActiveSpan(name, async (span) => {
-    try {
-      return await fn();
-    } catch (err) {
-      span.recordException(err as Error);
-      span.setStatus({ code: SpanStatusCode.ERROR });
-      throw err;
-    } finally {
-      span.end();
-    }
-  });
-}
-```
+This is the seed of what I now think of as platform thinking: the boundary between _your code_ and _everything around your code_ is mostly bureaucratic. The bug is wherever the user finds it.
 
-Not glamorous. But the highest-leverage code I write these days is helpers that make doing the right thing trivial.
+## Vivino: the front-end as lever
+
+I joined Vivino as a front-end engineer. The actual job — the one I'm proudest of — was helping the company pivot from an online community into an e-commerce business where any user could order wine.
+
+That's a much bigger story than my title suggests. It was a Rails migration. It was a checkout flow. It was a payments integration with all the regulatory grime that implies. It was a slow, deliberate retirement of jQuery and Bootstrap across every app we owned. And — quietly, underneath all of it — it was a new mental model for what the product _was_. Vivino used to be a place you went to remember a wine you liked. By the time I left, it was also a place you went to buy one.
+
+All of that touched front-end. None of it was _only_ front-end.
+
+What I took away from those two years: a front-end engineer who understands the business model has more leverage than a back-end engineer who doesn't. The UI is where the business meets the user. Everything else — the Rails monolith, the search index, the recommendation engine — is plumbing in service of that meeting. The plumbing matters enormously, and I learned a lot of it. But the leverage was always at the surface.
+
+This was also where I started noticing that the most interesting bugs were never where they were supposed to be. A slow checkout was a JavaScript bundle problem, an n+1 query problem, and a CDN cache problem, all at once. Whoever was willing to follow the bug across all three layers was the person who fixed it. That person, increasingly, was me.
+
+## Saxo and the first Banking Circle years: going deep
+
+After Vivino I did something that, in retrospect, looks like the opposite move: I narrowed.
+
+At Saxo Bank I worked on a multi-window Electron trading application — the kind of app a trader keeps open on three monitors and never closes. Front-end performance there isn't a vanity metric; it's a fiduciary one. A 200ms delay on a price update is a real number on a real screen, and someone might trade against it. I led the migration from Selenium to Cypress, fought with IPC, learned more about the V8 garbage collector than I expected to.
+
+I continued narrowing at Banking Circle, leading UI architecture, building a component library, dragging the team toward trunk-based development and a CI pipeline that _didn't_ take forty minutes.
+
+It wasn't actually the opposite of the AutoUncle phase. It was the same instinct on a smaller surface. Going wide teaches you the _shape_ of a system. Going deep teaches you the _cost_ of every decision. You can't make good trade-offs across a system you've only ever seen from the outside.
+
+And here's the thing I didn't notice while it was happening: once you've taken ownership of a slow CI pipeline, you've already become a platform engineer. You just don't have the title yet. The work I was doing — making it cheap and safe for other engineers to ship — was platform work in a front-end costume.
+
+## Banking Circle now: the deepening turned sideways
+
+The shift from "lead front-end" to "principal DevOps" wasn't a pivot. It was the same problems — slow feedback loops, brittle pipelines, observability gaps, dashboards nobody trusted — followed one more layer down, because nobody else was looking at them.
+
+The job, stated plainly, is to help engineers ship code faster and more reliably. That breaks down into three kinds of work, in roughly increasing order of leverage:
+
+- **Automate the things people are doing by hand.** If two engineers have run the same checklist twice, it's a script. If five have, it's a pipeline. The point isn't speed — it's that humans drift, and drift is where outages live.
+- **Streamline the processes that survive automation.** Every workflow has dead steps in it; the approval nobody reads, the staging deploy nobody trusts, the manual gate that exists because of an incident from three years ago. Most of platform work is gently retiring those.
+- **Expose self-service tools so engineers don't have to ask.** A waiting engineer is an unblocked outage. The platform team that's a queue is a worse version of the platform team that's a paved road.
+
+A lot of my day-to-day work is small helpers that make the right thing the easy thing — a function that turns an arbitrary block of code into a properly-attributed span, a consistent correlation id that flows from the API edge through every internal hop, a dashboard you can read in five seconds. Each of those, on its own, is unremarkable. The trick is that they compound. A helper becomes a convention; a convention becomes a generator that scaffolds a new service with the convention already baked in; and suddenly nobody on the team has to remember the thing, because the thing is just how new services start.
+
+None of this is glamorous. But the highest-leverage code I write these days is whatever quietly removes the option to do the wrong thing.
+
+Where front-end taught me empathy for users, platform work taught me empathy for engineers _as_ users. They're not separate skills. They're the same skill, pointed at a different audience. The deploy that fails silently at 5pm on Friday is the bad form on a sign-up page, scaled up to your colleagues' weekends.
 
 ## What I'd tell my front-end self
 
-Three things:
+Three things, none of which I would have understood at the time.
 
-1. **Learn one thing deeply per year.** Not "I touched Kubernetes." More like "I can explain how the scheduler picks a node, and I've debugged a case where it picked wrong."
-2. **Volunteer for the unsexy work.** CI pipelines, observability, build times, on-call runbooks. The people who own these things end up technical leaders, almost by accident.
-3. **Write things down.** This post is here because half the time, future-me is the only one who reads the docs.
+1. **Own the whole thing that ships, not just the part you were hired for.** The campaign, the form, the deploy, the dashboard, the email — they're all the same product. The job title is just a label on one corner of it.
+2. **Alternate wide and deep, deliberately.** A few years of going wider, then a few of going deeper. Either alone produces lopsided engineers. The interesting careers I see around me look like a sine wave, not a ladder.
+3. **Volunteer for the unsexy work.** CI, on-call, observability, build times, runbooks. That's where the leverage hides, and almost nobody is competing for it. The people who quietly fix this stuff become technical leaders almost by accident.
 
-That's the whole story. Front-end engineers who get curious about everything underneath their components tend to end up doing platform work eventually. It's a good place to be.
+## Back to the pod
+
+The pod's still misbehaving, by the way. I'll figure it out — or I won't, and someone smarter than me will, and I'll learn something for the trouble. The work doesn't feel different from debugging a stylesheet in 2015. You read the symptoms, you form a guess, you make a change, you watch what happens. The stack is bigger now, and the cost of being wrong is higher, but the loop is the loop.
+
+The people I trust most in platform work didn't arrive there by studying platform work. They arrived by caring, persistently, about the whole thing they were shipping — and following the curiosity wherever it led. Sometimes that's CSS. Sometimes that's a Facebook ad budget. Sometimes, ten years later, it's a Kubernetes pod.
+
+---
+
+If you're a front-end engineer with a creeping suspicion that the interesting work is one layer below where you are, you're probably right. [Send me an email](mailto:paul@devpill.dk) — I'll trade stories.
