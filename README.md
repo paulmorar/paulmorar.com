@@ -1,83 +1,111 @@
-# Paul Morar's Portfolio
+# paulmorar.com
 
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
-![Deployment](https://img.shields.io/github/deployments/paulmorar/paulmorar.com/production?label=Deployment&logo=vercel&style=for-the-badge)
+The source for [paulmorar.com](https://paulmorar.com) — my personal site. A small, fast, content-first site for the writing I want to keep, the work I've done, and a way to find me.
 
-Welcome to the repository for Paul Morar's personal portfolio website. This project showcases my professional experience, skills, and projects.
+Built deliberately with no UI framework, no CSS-in-JS runtime, and no client-side state. Just MDX, CSS Modules, and Next.js doing the static-site thing it's good at.
 
-## Table of Contents
+## Stack
 
-- [About](#about)
-- [Features](#features)
-- [Technologies](#technologies)
-- [Setup](#setup)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+- **[Next.js 16](https://nextjs.org)** (App Router, Turbopack, RSC)
+- **React 19**, **TypeScript 5** (strict)
+- **CSS Modules** + native nesting + `clamp()` for fluid type — no Tailwind
+- **MDX** via [`next-mdx-remote`](https://github.com/hashicorp/next-mdx-remote) with [`rehype-pretty-code`](https://rehype-pretty-code.netlify.app/) and Shiki for syntax highlighting
+- **[Vitest 4](https://vitest.dev)** + Testing Library + jsdom
+- Deployed on **Vercel**
 
-## About
+## Structure
 
-This portfolio website is built using modern web technologies to provide a fast, responsive, and visually appealing experience. It includes sections for my work experience, education, skills, and contact information.
-
-## Features
-
-- **Responsive Design**: Optimized for all screen sizes.
-- **Interactive UI**: Smooth animations and transitions.
-- **Dark Mode**: Supports dark mode for better readability in low-light environments.
-- **Particles Animation**: Eye-catching particle effects on the homepage.
-
-## Technologies
-
-- **Next.js**: React framework for server-side rendering and static site generation.
-- **React**: JavaScript library for building user interfaces.
-- **TypeScript**: Typed superset of JavaScript.
-- **TailwindCSS**: Utility-first CSS framework.
-- **tsparticles**: Library for creating particle animations.
-
-## Setup
-
-To set up the project locally, follow these steps:
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/paulmorar/paulmorar.com.git
-   ```
-2. Navigate to the project directory:
-   ```bash
-   cd paulmorar.com
-   ```
-3. Install dependencies:
-   ```bash
-   npm install
-   ```
-4. Run the development server:
-   ```bash
-   npm run dev
-   ```
-
-## Usage
-
-To build and start the project in production mode, use the following commands:
-
-```bash
-npm run build
-npm start
+```
+src/
+├── app/                      # Next App Router
+│   ├── layout.tsx            # Root layout, metadata, JSON-LD
+│   ├── page.tsx              # Home (business card)
+│   ├── globals.css           # Design tokens + base styles
+│   ├── about/                # About page
+│   ├── writing/              # Blog index, post pages, RSS feed
+│   ├── icon.tsx              # 32×32 favicon (generated)
+│   ├── apple-icon.tsx        # 180×180 apple touch icon (generated)
+│   ├── opengraph-image.tsx   # /og social card (generated, per-route)
+│   ├── robots.ts             # /robots.txt
+│   └── sitemap.ts            # /sitemap.xml
+├── components/               # Site chrome (header, footer)
+├── content/writing/          # MDX posts (frontmatter + content)
+└── lib/                      # site config, posts loader, SEO helpers
+tests/                        # Vitest tests
+public/                       # Static assets + web manifest
 ```
 
-## Contributing
+Posts live as MDX files under [src/content/writing](src/content/writing). Frontmatter shape:
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes.
+```mdx
+---
+title: "Post title"
+summary: "One sentence summary used in the index, RSS, and OG image."
+date: "YYYY-MM-DD"
+tags: ["platform", "observability"]
+---
+
+Body in MDX. Code fences support `title="…"` and `{1,3-5}` line highlighting via rehype-pretty-code.
+```
+
+## Getting started
+
+```bash
+npm install
+npm run dev          # http://localhost:3000
+```
+
+### Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the dev server (Turbopack) |
+| `npm run build` | Production build |
+| `npm run start` | Run the production build locally |
+| `npm run lint` | ESLint |
+| `npm test` | Run the Vitest suite once |
+| `npm run test:watch` | Vitest in watch mode |
+| `npm run test:coverage` | Vitest with v8 coverage report |
+
+## Writing a post
+
+1. Create `src/content/writing/<slug>.mdx` with the frontmatter above.
+2. Write. Use fenced code blocks for highlighting.
+3. The post is automatically picked up by the writing index, the RSS feed, the sitemap, and gets its own OG image.
+
+## SEO & metadata
+
+The site ships with:
+
+- Per-route `generateMetadata` with canonical URLs, OpenGraph, and Twitter cards
+- JSON-LD: `Person`, `WebSite`, `Blog`, `BlogPosting`, `BreadcrumbList`, `ProfilePage`
+- Auto-generated `/sitemap.xml` and `/robots.txt`
+- File-convention OG images per route (home, about, writing, individual posts) rendered with [`next/og`](https://nextjs.org/docs/app/api-reference/functions/image-response) using Caveat + DM Sans bundled locally via `@fontsource`
+- Auto-generated favicon and apple-touch-icon
+
+See [src/lib/seo.tsx](src/lib/seo.tsx) and [src/lib/site.ts](src/lib/site.ts) for the source of truth.
+
+## Design system
+
+Defined as CSS custom properties in [src/app/globals.css](src/app/globals.css):
+
+- **Palette** — warm cream `#FEFDF8`, ink `#1B1B1F`, accent orange `#E8603C`, available-dot green `#10B981`
+- **Type** — Caveat for orange accents, DM Sans for body, JetBrains Mono for code
+- **Scale** — `--step-0` through `--step-5`, fluid via `clamp()`
+- **Layout** — 60rem content width with fluid padding
+
+## Tests
+
+```bash
+npm test
+```
+
+Covers the post loader, RSS escaping, page rendering, and site chrome. Tests mock `next/font`, `next/navigation`, and `next-mdx-remote/rsc` (see [tests/setup.tsx](tests/setup.tsx)) so they run in jsdom without hitting the network.
+
+## Deployment
+
+Push to `master`. Vercel deploys.
 
 ## License
 
-This project is licensed under the MIT License.
-
-## Contact
-
-For any inquiries, please contact me at paul@devpill.dk.
+[MIT](LICENSE).
