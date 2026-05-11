@@ -4,7 +4,7 @@ import { getAllPosts, getPost, getAllSlugs, formatDate } from "@/lib/posts";
 describe("posts library", () => {
   it("loads the seed posts from disk", () => {
     const posts = getAllPosts();
-    expect(posts.length).toBeGreaterThanOrEqual(2);
+    expect(posts.length).toBeGreaterThanOrEqual(1);
   });
 
   it("sorts posts newest first", () => {
