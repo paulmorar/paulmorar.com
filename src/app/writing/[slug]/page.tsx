@@ -9,6 +9,7 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getAllPosts, getPost, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
+import { JsonLd, blogPostingSchema, breadcrumbSchema } from "@/lib/seo";
 import styles from "./page.module.css";
 
 type Params = { slug: string };
@@ -25,20 +26,30 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return {};
+  const url = `${site.url}/writing/${post.slug}`;
   return {
     title: post.title,
     description: post.summary,
+    keywords: post.tags ? [...post.tags, ...site.keywords] : undefined,
+    authors: [{ name: site.name, url: site.url }],
+    alternates: { canonical: url },
     openGraph: {
       title: post.title,
       description: post.summary,
       type: "article",
-      url: `${site.url}/writing/${post.slug}`,
+      url,
+      siteName: site.name,
+      locale: site.locale,
       publishedTime: post.date,
+      modifiedTime: post.date,
+      authors: [site.url],
+      tags: post.tags ? [...post.tags] : undefined,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.summary,
+      creator: site.social.xHandle,
     },
   };
 }
@@ -66,6 +77,14 @@ export default async function PostPage({
   return (
     <>
       <SiteHeader active="writing" />
+      <JsonLd data={blogPostingSchema(post)} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: site.url },
+          { name: "Writing", url: `${site.url}/writing` },
+          { name: post.title, url: `${site.url}/writing/${post.slug}` },
+        ])}
+      />
       <article className={styles.article}>
         <header className={styles.header}>
           <div className={styles.meta}>

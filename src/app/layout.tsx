@@ -1,6 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Caveat, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { site } from "@/lib/site";
+import { JsonLd, personSchema, websiteSchema } from "@/lib/seo";
 import "./globals.css";
 
 const display = Caveat({
@@ -29,28 +30,62 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description: site.description,
-  openGraph: {
-    title: site.title,
-    description: site.description,
-    url: site.url,
-    siteName: site.name,
-    type: "website",
-    locale: "en_GB",
-  },
-  twitter: {
-    card: "summary_large_image",
-    creator: "@paulmorar",
-    site: "@paulmorar",
-  },
+  applicationName: site.name,
+  authors: [{ name: site.name, url: site.url }],
+  creator: site.name,
+  publisher: site.name,
+  keywords: [...site.keywords],
+  category: "technology",
   alternates: {
+    canonical: site.url,
     types: {
       "application/rss+xml": [
         { url: "/writing/rss.xml", title: `${site.name} — Writing` },
       ],
     },
   },
-  robots: "follow, index",
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    url: site.url,
+    siteName: site.name,
+    type: "website",
+    locale: site.locale,
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: site.social.xHandle,
+    site: site.social.xHandle,
+    title: site.title,
+    description: site.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   manifest: "/manifest.webmanifest",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FEFDF8" },
+    { media: "(prefers-color-scheme: dark)", color: "#1B1B1F" },
+  ],
+  colorScheme: "light",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -60,10 +95,14 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="en-GB"
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <JsonLd data={personSchema} />
+        <JsonLd data={websiteSchema} />
+        {children}
+      </body>
     </html>
   );
 }

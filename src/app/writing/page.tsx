@@ -3,15 +3,54 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { getAllPosts, formatDate } from "@/lib/posts";
+import { site } from "@/lib/site";
+import { JsonLd, breadcrumbSchema } from "@/lib/seo";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Writing",
-  description: "Essays and notes by Paul Morar.",
+  description:
+    "Essays and notes by Paul Morar on platform engineering, observability, Kubernetes, and the slow craft of shipping software.",
+  alternates: {
+    canonical: `${site.url}/writing`,
+    types: {
+      "application/rss+xml": [
+        { url: "/writing/rss.xml", title: `${site.name} — Writing` },
+      ],
+    },
+  },
+  openGraph: {
+    title: `Writing · ${site.name}`,
+    description:
+      "Essays and notes on platform engineering, observability, and shipping software.",
+    url: `${site.url}/writing`,
+    type: "website",
+  },
 };
 
 export default function WritingIndexPage() {
   const posts = getAllPosts();
+
+  const blogSchema = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "@id": `${site.url}/writing#blog`,
+    url: `${site.url}/writing`,
+    name: `${site.name} — Writing`,
+    description:
+      "Essays and notes on platform engineering, observability, Kubernetes, and shipping software.",
+    inLanguage: "en-GB",
+    author: { "@id": `${site.url}/#person` },
+    publisher: { "@id": `${site.url}/#person` },
+    blogPost: posts.map((p) => ({
+      "@type": "BlogPosting",
+      "@id": `${site.url}/writing/${p.slug}#article`,
+      headline: p.title,
+      description: p.summary,
+      datePublished: p.date,
+      url: `${site.url}/writing/${p.slug}`,
+    })),
+  } as const;
 
   const byYear = posts.reduce<Record<number, typeof posts>>((acc, p) => {
     (acc[p.year] ??= []).push(p);
@@ -25,6 +64,13 @@ export default function WritingIndexPage() {
   return (
     <>
       <SiteHeader active="writing" />
+      <JsonLd data={blogSchema} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: site.url },
+          { name: "Writing", url: `${site.url}/writing` },
+        ])}
+      />
       <main className={styles.main}>
         <h1 className={styles.title}>Writing</h1>
         <p className={styles.lede}>

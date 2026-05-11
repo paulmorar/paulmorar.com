@@ -2,17 +2,46 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { about } from "@/lib/about";
+import { site } from "@/lib/site";
+import { JsonLd, breadcrumbSchema } from "@/lib/seo";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "About",
-  description: "About Paul Morar — engineer in Copenhagen.",
+  title: "About Paul Morar",
+  description:
+    "Engineer in Copenhagen — front-end turned DevOps, currently leading platform and observability work at Banking Circle.",
+  alternates: { canonical: `${site.url}/about` },
+  openGraph: {
+    title: "About Paul Morar",
+    description:
+      "Engineer in Copenhagen — front-end turned DevOps, currently leading platform and observability work at Banking Circle.",
+    url: `${site.url}/about`,
+    type: "profile",
+  },
 };
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${site.url}/about#page`,
+  url: `${site.url}/about`,
+  name: "About Paul Morar",
+  about: { "@id": `${site.url}/#person` },
+  mainEntity: { "@id": `${site.url}/#person` },
+  inLanguage: "en-GB",
+} as const;
 
 export default function AboutPage() {
   return (
     <>
       <SiteHeader active="about" />
+      <JsonLd data={profilePageSchema} />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: site.url },
+          { name: "About", url: `${site.url}/about` },
+        ])}
+      />
       <main className={styles.main}>
         <h1 className={styles.title}>About</h1>
 

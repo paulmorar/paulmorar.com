@@ -1,13 +1,28 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllPosts, formatDate } from "@/lib/posts";
 import { site } from "@/lib/site";
+import { JsonLd, breadcrumbSchema } from "@/lib/seo";
 import styles from "./page.module.css";
+
+export const metadata: Metadata = {
+  title: site.title,
+  description: site.description,
+  alternates: { canonical: site.url },
+  openGraph: {
+    title: site.title,
+    description: site.description,
+    url: site.url,
+    type: "profile",
+  },
+};
 
 export default function HomePage() {
   const latest = getAllPosts()[0];
 
   return (
     <main className={styles.page}>
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: site.url }])} />
       <section className={styles.card}>
         <div className={styles.eyebrow}>
           <span className={styles.dot} aria-hidden />
