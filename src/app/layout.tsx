@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Caveat, DM_Sans, JetBrains_Mono } from "next/font/google";
 import { site } from "@/lib/site";
 import { JsonLd, personSchema, websiteSchema } from "@/lib/seo";
+import { PageTransition } from "@/components/page-transition";
 import "./globals.css";
 
 const display = Caveat({
@@ -101,6 +102,7 @@ export default function RootLayout({
       <body>
         <JsonLd data={personSchema} />
         <JsonLd data={websiteSchema} />
+        <PageTransition />
         {children}
       </body>
     </html>

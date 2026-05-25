@@ -1,0 +1,77 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  transform: translateZ(0);
+}
+
+.panel {
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
+  will-change: transform;
+}
+
+.panel:nth-child(2) {
+  background: var(--accent-hover);
+  transform-origin: right center;
+}
+
+.playing .panel {
+  animation: sweep 750ms cubic-bezier(0.83, 0, 0.17, 1) forwards;
+}
+
+.playing .panel:nth-child(2) {
+  animation-delay: 60ms;
+}
+
+@keyframes sweep {
+  0% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+  45% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+}
+
+.playing .panel:nth-child(2) {
+  animation-name: sweepReverse;
+}
+
+@keyframes sweepReverse {
+  0% {
+    transform: scaleX(0);
+    transform-origin: right center;
+  }
+  45% {
+    transform: scaleX(1);
+    transform-origin: right center;
+  }
+  55% {
+    transform: scaleX(1);
+    transform-origin: left center;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .playing .panel {
+    animation: none;
+  }
+}
