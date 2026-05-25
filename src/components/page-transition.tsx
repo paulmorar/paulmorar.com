@@ -13,6 +13,7 @@ export function PageTransition() {
   const pathname = usePathname();
   const [playing, setPlaying] = useState(false);
   const initial = useRef(true);
+  const trailRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initial.current) {
@@ -22,19 +23,24 @@ export function PageTransition() {
     setPlaying(true);
   }, [pathname]);
 
+  // The trailing panel finishes last; reset state when its sweep ends so the
+  // overlay returns to idle. Native listener (not React's onAnimationEnd)
+  // makes the behaviour easy to assert in jsdom-based tests.
+  useEffect(() => {
+    const node = trailRef.current;
+    if (!node) return;
+    const onEnd = () => setPlaying(false);
+    node.addEventListener("animationend", onEnd);
+    return () => node.removeEventListener("animationend", onEnd);
+  }, []);
+
   return (
     <div
       aria-hidden="true"
       className={`${styles.overlay} ${playing ? styles.playing : ""}`}
-      onAnimationEnd={(event) => {
-        // The trailing panel ends last; reset state after it finishes.
-        if ((event.target as HTMLElement).dataset.trail === "true") {
-          setPlaying(false);
-        }
-      }}
     >
       <div className={styles.panel} />
-      <div className={styles.panel} data-trail="true" />
+      <div ref={trailRef} className={styles.panel} data-trail="true" />
     </div>
   );
 }
