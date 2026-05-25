@@ -33,7 +33,7 @@ describe("PageTransition", () => {
     expect(panels[1].getAttribute("data-trail")).toBe("true");
   });
 
-  it("plays the sweep on route change and resets when the trailing panel ends", () => {
+  it("plays the sweep when the pathname changes and resets when it ends", () => {
     const { container, rerender } = render(<PageTransition />);
     const overlay = container.firstChild as HTMLElement;
 
@@ -41,17 +41,28 @@ describe("PageTransition", () => {
     rerender(<PageTransition />);
     expect(overlay.className).toMatch(/playing/);
 
-    // Dispatch a real bubbling animationend event; React 19 delegates these
-    // at the root, so bubbling is required for the handler to run.
-    const [lead, trail] = overlay.children as HTMLCollectionOf<HTMLElement>;
+    // The animationend listener lives on the trailing panel (native
+    // addEventListener via ref). Firing it should drop the playing class.
+    const trail = overlay.children[1] as HTMLElement;
+    expect(trail.dataset.trail).toBe("true");
     act(() => {
-      lead.dispatchEvent(new Event("animationend", { bubbles: true }));
-    });
-    expect(overlay.className).toMatch(/playing/);
-
-    act(() => {
-      trail.dispatchEvent(new Event("animationend", { bubbles: true }));
+      trail.dispatchEvent(new Event("animationend"));
     });
     expect(overlay.className).not.toMatch(/playing/);
+  });
+
+  it("re-plays on subsequent pathname changes", () => {
+    const { container, rerender } = render(<PageTransition />);
+    const overlay = container.firstChild as HTMLElement;
+    const trail = overlay.children[1] as HTMLElement;
+
+    pathRef.current = "/about";
+    rerender(<PageTransition />);
+    act(() => trail.dispatchEvent(new Event("animationend")));
+    expect(overlay.className).not.toMatch(/playing/);
+
+    pathRef.current = "/writing";
+    rerender(<PageTransition />);
+    expect(overlay.className).toMatch(/playing/);
   });
 });

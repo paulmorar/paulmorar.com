@@ -46,12 +46,20 @@ describe("Post page", () => {
 
   it("renders prev/next navigation between posts", async () => {
     const posts = getAllPosts();
-    if (posts.length < 2) return;
+    if (posts.length < 2) {
+      // Only one seed post — assert the rendered nav reflects that rather
+      // than silently skipping.
+      await renderPost(posts[0].slug);
+      const nav = screen.getByRole("navigation", { name: /more posts/i });
+      expect(nav).toBeInTheDocument();
+      return;
+    }
     await renderPost(posts[0].slug);
-    // Newest post has older post as prev (no next)
-    expect(
-      screen.getByRole("link", { name: posts[1].title }),
-    ).toBeInTheDocument();
+    // Newest post: its "prev" is the next-older post; no "next".
+    expect(screen.getByRole("link", { name: posts[1].title })).toHaveAttribute(
+      "href",
+      `/writing/${posts[1].slug}`,
+    );
   });
 
   it("calls notFound for an unknown slug", async () => {

@@ -1,18 +1,20 @@
 import "@testing-library/jest-dom/vitest";
 import { vi } from "vitest";
 
-// Mock next/font/google — returns inert className/variable hooks
+// next/font/google — return an inert loader for any requested font so tests
+// don't need to track which family the app currently uses.
 vi.mock("next/font/google", () => {
-  const make = () => () => ({
+  const loader = () => ({
     className: "mock-font",
     variable: "mock-font-var",
     style: { fontFamily: "mock" },
   });
-  return {
-    Fraunces: make(),
-    Inter: make(),
-    JetBrains_Mono: make(),
-  };
+  return new Proxy(
+    {},
+    {
+      get: () => loader,
+    },
+  );
 });
 
 // next/link → plain <a>
